@@ -1,5 +1,5 @@
 import pygame.display
-from config import Config
+from Config import Config
 from UI.UiManager import UiManager
 
 class Game:
