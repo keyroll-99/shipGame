@@ -1,19 +1,19 @@
-import pygame.font
 from pygame import Surface, SurfaceType
-from pygame.font import Font
-from UI.Controls.UiItem import UiItem
+from UI.Controls.Label import Label
+from UI.Models.LabelConfig import LabelConfig
+from Models.Position import Position
+
+from UI.Controls._UiItem import UiItem
 
 
 class UiManager:
     window: Surface | SurfaceType
-    font: Font
     uiElements: list[UiItem] = []
 
     def __init__(self, window: Surface | SurfaceType):
         self.window = window
-        self.font = pygame.font.SysFont('Comic Sans MS', 30)
-
+        self.uiElements.append(Label(LabelConfig("test", (0, 0, 0), 30, Position(200, 10, 100, 200))))
 
     def render_ui(self):
         for uiElement in self.uiElements:
-            pass
+            uiElement.render(self.window)

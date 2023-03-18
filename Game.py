@@ -2,6 +2,7 @@ import pygame.display
 from Config import Config
 from UI.UiManager import UiManager
 
+
 class Game:
     window = None
     clock = None
@@ -19,8 +20,8 @@ class Game:
                 if event.type == pygame.QUIT:
                     is_running = False
 
-            for uiElement in self.uiObject:
-                uiElement.render(pygame.display)
+            self.window.fill((255, 255, 255))
+            self.uiManager.render_ui()
 
             pygame.display.update()
 
