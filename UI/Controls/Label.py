@@ -1,17 +1,17 @@
 from UI.Models.LabelConfig import LabelConfig
-from UI.Exceptions.InvalidLabelConfig import InvalidLabelConfig
-from UI.Controls._UiItem import UiItem
+from UI.Exceptions.InvalidLabelConfigException import InvalidLabelConfigException
+from Models.GameObject import GameObject
 from pygame import Surface, SurfaceType
 from pygame.font import Font, SysFont
 
 
-class Label(UiItem):
+class Label(GameObject):
     color: tuple[int, int, int]
     text: str
     font: Font
 
     def __init__(self, config: LabelConfig):
-        InvalidLabelConfig.throw_if_invalid(config)
+        InvalidLabelConfigException.throw_if_invalid(config)
         super().__init__(config)
         self.text = config.text
         self.color = config.color
