@@ -1,5 +1,5 @@
-from UI.Models.ButtonConfig import ButtonConfig
 from UI.Exceptions.InvalidUiConfigException import InvalidUiConfigException
+from UI.Models.ButtonConfig import ButtonConfig
 
 
 class InvalidButtonConfigException(Exception):

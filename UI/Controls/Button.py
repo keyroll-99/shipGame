@@ -1,12 +1,14 @@
+from typing import Callable
+
 import pygame
 from pygame import Surface, SurfaceType
-from pygame.font import Font, SysFont
 from pygame.event import Event
-from pygame import mouse
+from pygame.font import Font, SysFont
 
 from Models.GameObject import GameObject
 from UI.Exceptions.InvalidButtonConfigException import InvalidButtonConfigException
 from UI.Models.ButtonConfig import ButtonConfig
+from ObjectManager import ObjectManager
 
 
 class Button(GameObject):
@@ -15,6 +17,8 @@ class Button(GameObject):
     text: str
     font: Font
     buttonSurface: Surface
+    onClick: Callable[[Event], None]
+    isClicked = False
 
     def __init__(self, config: ButtonConfig):
         InvalidButtonConfigException.throw_if_invalid(config)
@@ -24,6 +28,7 @@ class Button(GameObject):
         self.font = SysFont('Comic Sans MS', config.fontSize)
         self.buttonSurface = Surface((config.width, config.height))
         self.buttonSurface.fill(config.backgroundColor)
+        self.onClick = config.onClick
 
         self.eventsReaction = {
             pygame.MOUSEBUTTONUP: self.on_mouse_button_up,
@@ -37,12 +42,12 @@ class Button(GameObject):
         window.blit(self.buttonSurface, (self.position.left, self.position.top))
 
     def on_mouse_button_up(self, event: Event):
-        print("clicked")
-        print(f"{event.type}")
-        print(f"{mouse.get_pos()}")
-        print(f"{mouse.get_pressed()}")
+        self.isClicked = False
 
     def on_mouse_button_down(self, event: Event):
-        print("mouse down")
+        self.isClicked = True
+        if self.onClick is None:
+            raise NotImplemented("On click not implemented")
+        self.onClick(event)
 
 

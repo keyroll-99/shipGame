@@ -22,4 +22,3 @@ class ObjectManager:
     @staticmethod
     def get_all_objects():
         return ObjectManager.__gameObjects
-
