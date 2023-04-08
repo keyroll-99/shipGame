@@ -6,6 +6,7 @@ from EventQueue.EventsProcessing.CloseWindowEventProcessing import CloseWindowEv
 from ObjectManager import ObjectManager
 from View.ViewManager import ViewManager
 from View import ViewNames
+from Clock.GameClock import GameClock
 
 
 class Game:
@@ -19,12 +20,13 @@ class Game:
         is_running = True
 
         while is_running:
+            self.clock.update()
             EventManager.event_handle()
 
             if CloseWindowEventProcessing.is_window_close():
                 is_running = False
 
-            self.window.fill((255, 255, 255))
+            self.window.fill(Config.WHITE_COLOR)
 
             ObjectManager.render_game_objects(self.window)
 
@@ -33,6 +35,6 @@ class Game:
     def __load_game(self):
         self.window = pygame.display.set_mode(Config.SCREEN_SIZE)
         pygame.display.set_caption(Config.GAME_NAME)
-        self.clock = pygame.time.Clock()
+        self.clock = GameClock()
         ViewManager.init()
         ViewManager.load_view(ViewNames.MAIN_MENU)

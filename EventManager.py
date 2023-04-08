@@ -39,16 +39,8 @@ class EventManager:
             game_objects = list(filter(lambda x: event.type in x.eventsReaction, ObjectManager.get_all_objects()))
 
             for game_object in game_objects:
-                if EventManager.mouse_is_over_game_object(game_object):
-                    game_object.eventsReaction[event.type](event)
+                game_object.eventsReaction[event.type](event)
 
             for event_processor in EventManager.eventProcessors:
                 if event.type in event_processor.eventsReaction:
                     event_processor.eventsReaction[event.type]()
-
-    @staticmethod
-    def mouse_is_over_game_object(gameObject: GameObject):
-        mouse_position = pygame.mouse.get_pos()
-
-        return gameObject.position.left < mouse_position[0] < gameObject.position.left + gameObject.position.width \
-            and gameObject.position.top < mouse_position[1] < gameObject.position.top + gameObject.position.height

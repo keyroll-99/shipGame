@@ -1,14 +1,20 @@
+from Config import Config
+from EventQueue.EventQueueManager import EventQueueManager
+from EventQueue.Events.CloseGameEvent import CloseGameEvent
+from EventQueue.EventsProcessing.ChangeViewEventProcessing import ChangeViewEvent
 from Models.Position import Position
 from UI.Controls.Button import Button, ButtonConfig
 from UI.Controls.Label import Label, LabelConfig
-from View.BaseView import BaseView
-from Config import Config
-from EventQueue.EventQueueManager import EventQueueManager
-from EventQueue.EventsProcessing.ChangeViewEventProcessing import ChangeViewEvent
 from View import ViewNames
+from View.BaseView import BaseView
+from View.MainMenu.PlayerNameInput import PlayerNameInput
+from Connection.Connection import Connection
+from Store.PlayerStore import PlayerStore
 
 
 class MainMenuView(BaseView):
+    playerNameInput: PlayerNameInput
+
     def __init__(self):
         self.__render_menu_actions()
         self.__render_title()
@@ -20,12 +26,49 @@ class MainMenuView(BaseView):
         self.viewObjects.append(title)
 
     def __render_menu_actions(self):
-        button = Button(ButtonConfig("Play", Config.DEFAULT_TEXT_COLOR, 30, (240, 240, 240),
-                                     Position(200, 60, Config.SCREEN_SIZE[0] / 2 - 100, Config.SCREEN_SIZE[1] / 2 - 100),
-                                     self.load_search_game_view))
+        self.playerNameInput = PlayerNameInput()
 
-        self.viewObjects.append(button)
+        play_button = Button(ButtonConfig("Play",
+                                          Config.DEFAULT_TEXT_COLOR,
+                                          30,
+                                          Config.LIGHT_GREY_COLOR,
+                                          Position(
+                                              200,
+                                              60,
+                                              Config.SCREEN_SIZE[0] / 2,
+                                              Config.SCREEN_SIZE[1] / 2 - 100
+                                          ),
+                                          self.join_to_game))
+
+        exit_button = Button(ButtonConfig("Exit",
+                                          Config.DEFAULT_TEXT_COLOR,
+                                          30,
+                                          Config.LIGHT_GREY_COLOR,
+                                          Position(
+                                              200,
+                                              60,
+                                              Config.SCREEN_SIZE[0] / 2 + 100,
+                                              Config.SCREEN_SIZE[1] / 2 - 100
+                                          ),
+                                          self.exit))
+
+        self.viewObjects.append(play_button)
+        self.viewObjects.append(exit_button)
+        self.viewObjects.append(self.playerNameInput)
+
+    def join_to_game(self, e):
+        if self.playerNameInput.playerNameInput.text == "":
+            self.playerNameInput.showError = True
+        else:
+            player_name = self.playerNameInput.playerNameInput.text
+            response = Connection.send_request(Config.PLAYER_CONTROLLER, "join", player_name)
+            if not response["isSuccess"]:
+                self.playerNameInput.errorLabel.text = response['message']
+                self.playerNameInput.showError = True
+            else:
+                PlayerStore.name = player_name
+                EventQueueManager.publish_event(ChangeViewEvent(ViewNames.SEARCH_GAME))
 
     @staticmethod
-    def load_search_game_view(e):
-        EventQueueManager.publish_event(ChangeViewEvent(ViewNames.SEARCH_GAME))
+    def exit(e):
+        EventQueueManager.publish_event(CloseGameEvent())

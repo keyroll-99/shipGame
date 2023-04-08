@@ -7,7 +7,6 @@ class EventQueueManager:
     @staticmethod
     def publish_event(event: BaseEvent):
         EventQueueManager.__events.append(event)
-        print(EventQueueManager.__events)
 
     @staticmethod
     def get_events():

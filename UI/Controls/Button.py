@@ -8,7 +8,7 @@ from pygame.font import Font, SysFont
 from Models.GameObject import GameObject
 from UI.Exceptions.InvalidButtonConfigException import InvalidButtonConfigException
 from UI.Models.ButtonConfig import ButtonConfig
-from ObjectManager import ObjectManager
+from Config import Config as GlobalConfig
 
 
 class Button(GameObject):
@@ -25,7 +25,7 @@ class Button(GameObject):
         super().__init__(config)
         self.text = config.text
         self.color = config.color
-        self.font = SysFont('Comic Sans MS', config.fontSize)
+        self.font = SysFont(GlobalConfig.DEFAULT_FONT, config.fontSize)
         self.buttonSurface = Surface((config.width, config.height))
         self.buttonSurface.fill(config.backgroundColor)
         self.onClick = config.onClick
@@ -45,9 +45,8 @@ class Button(GameObject):
         self.isClicked = False
 
     def on_mouse_button_down(self, event: Event):
-        self.isClicked = True
-        if self.onClick is None:
-            raise NotImplemented("On click not implemented")
-        self.onClick(event)
-
-
+        if self.is_mouse_over():
+            self.isClicked = True
+            if self.onClick is None:
+                raise NotImplemented("On click not implemented")
+            self.onClick(event)

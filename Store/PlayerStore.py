@@ -1,0 +1,2 @@
+class PlayerStore:
+    name: str = ""
