@@ -5,20 +5,24 @@ from Models.Position import Position
 from Config import Config
 from View.SearchGame.GameList import GameList
 from Connection.Connection import Connection
+from View.SearchGame.ActionButtons import ActionButtons
 
 
 class SearchGameView(BaseView):
     gameList: GameList
+    actionButtons: ActionButtons
 
     def __init__(self):
-        label = Label(LabelConfig("search game".upper(), (0, 0, 0), 40,
-                                  Position(200, 10, Config.SCREEN_SIZE[0] / 2 - 200, Config.SCREEN_SIZE[1] / 2 - 125)))
         self.gameList = GameList()
+        self.actionButtons = ActionButtons()
+
         self.viewObjects = [
-            label,
-            self.gameList
+            self.gameList,
+            self.actionButtons
         ]
 
     def load(self):
         super().load()
-        self.gameList.serverList.config.elements = Connection.send_request(Config.GAME_ROOM_CONTROLLER, "get-all")
+        self.gameList.serverList.config.elements = ["server-1", "server-2"]
+        # todo change it wich server connection
+        # self.gameList.serverList.config.elements = Connection.send_request(Config.GAME_ROOM_CONTROLLER, "get-all")

@@ -8,7 +8,7 @@ class GameObject:
     objectId: int
     eventsReaction: dict = {}
 
-    def __init__(self, position: Position | None):
+    def __init__(self, position: Position | None = None):
         self.position = position
         self.objectId = GameObject.__maxObjectId
         GameObject.__maxObjectId += 1

@@ -2,7 +2,6 @@ from Config import Config
 from Models.GameObject import GameObject
 from Models.Position import Position
 from UI.Controls.List import List, ListConfig
-from Connection.Connection import Connection
 
 
 class GameList(GameObject):
@@ -10,22 +9,23 @@ class GameList(GameObject):
     serverNames: list[str]
 
     def __init__(self):
-        super().__init__(None)
-
+        super().__init__()
 
         self.serverList = List(ListConfig(
             Config.BACK_COLOR,
             Config.DEFAULT_FONT_SIZE,
             Config.GREY_COLOR,
-            (255, 0, 0),
+            Config.GRASS_GREY,
             Position(
-                200,
-                Config.SCREEN_SIZE[1],
-                0,
-                0
+                400,
+                600,
+                10,
+                (Config.SCREEN_SIZE[1] / 2) - 200
             ),
-            ["test", "test2"]
+            []
         ))
+
+        self.eventsReaction = {**self.serverList.eventsReaction}
 
     def render(self, window):
         self.serverList.render(window)
