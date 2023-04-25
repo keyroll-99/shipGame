@@ -51,3 +51,6 @@ class List(GameObject):
         witch_element = math.floor((mouse_pos[1] - self.config.top) / self.elementHeight)
         if witch_element <= len(self.config.elements):
             self.selectedIndex = witch_element
+
+    def get_selected(self):
+        return self.config.elements[self.selectedIndex]

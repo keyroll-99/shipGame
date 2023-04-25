@@ -1,12 +1,10 @@
-import pygame
 from pygame.event import Event, get as get_all_events
 
+from EventQueue.EventQueueManager import EventQueueManager
 from EventQueue.EventsProcessing.BaseEventProcessing import BaseEventProcessing
 from EventQueue.EventsProcessing.ChangeViewEventProcessing import ChangeViewEventProcessing
 from EventQueue.EventsProcessing.CloseWindowEventProcessing import CloseWindowEventProcessing
-from Models.GameObject import GameObject
 from ObjectManager import ObjectManager
-from EventQueue.EventQueueManager import EventQueueManager
 
 
 class EventManager:

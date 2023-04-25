@@ -11,9 +11,8 @@ class Connection:
         conn.connect((Config.SERVER_NAME, Config.SERVER_PORT))
         jsonData = json.dumps(requestData)
         conn.send(bytes(f'{jsonData}', "utf-8"))
-        response = conn.recv(1024)
+        response = conn.recv(4086)
         conn.close()
-        print(response)
 
         return json.loads(response.decode("utf-8"))
 
