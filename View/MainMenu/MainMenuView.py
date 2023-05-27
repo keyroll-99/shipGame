@@ -16,6 +16,7 @@ class MainMenuView(BaseView):
     playerNameInput: PlayerNameInput
 
     def __init__(self):
+        self.viewObjects = []
         self.__render_menu_actions()
         self.__render_title()
 
@@ -56,7 +57,7 @@ class MainMenuView(BaseView):
         self.viewObjects.append(exit_button)
         self.viewObjects.append(self.playerNameInput)
 
-    def join_to_game(self, e):
+    def join_to_game(self, *args):
         if self.playerNameInput.playerNameInput.text == "":
             self.playerNameInput.showError = True
         else:
@@ -70,5 +71,5 @@ class MainMenuView(BaseView):
                 EventQueueManager.publish_event(ChangeViewEvent(ViewNames.SEARCH_GAME))
 
     @staticmethod
-    def exit(e):
+    def exit(*args):
         EventQueueManager.publish_event(CloseGameEvent())

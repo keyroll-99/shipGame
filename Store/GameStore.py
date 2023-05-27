@@ -7,6 +7,7 @@ class GameStore:
     player_board = []
     player_hit = []
     enemy_hit = []
+    is_player_ready = False
 
     @staticmethod
     def set_game_data(data):

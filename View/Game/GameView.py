@@ -1,28 +1,24 @@
-from View.BaseView import BaseView
-from UI.Controls.Label import Label, LabelConfig
-from Store.GameStore import GameStore
-from Config import Config
+import Config.Config
 from Models.Position import Position
-from View.Game.GameLogic import GameLogic
+from UI.Controls.Label import Label
+from UI.Models.LabelConfig import LabelConfig
+from View.BaseView import BaseView
 
 
 class GameView(BaseView):
     def __init__(self):
-        label = Label(LabelConfig(
-            "gra",
-            Config.BACK_COLOR,
-            Config.DEFAULT_FONT_SIZE,
+        l = Label(LabelConfig(
+            "dupa",
+            Config.Config.BACK_COLOR,
+            Config.Config.DEFAULT_FONT_SIZE,
             Position(
                 100,
                 100,
-                250,
-                250
+                100,
+                100
             )
         ))
-
-        game_logic = GameLogic()
-
-        self.viewObjects = [label, game_logic]
+        self.viewObjects = [l]
 
     def load(self):
         super().load()

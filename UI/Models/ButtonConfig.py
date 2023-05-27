@@ -11,12 +11,17 @@ class ButtonConfig(Position):
     text: str
     fontSize: int
     onClick: Callable[[Event], None]
+    metaData: dict
 
     def __init__(self, text: str, color: tuple[int, int, int], fontSize: int, backgroundColor: tuple[int, int, int],
-                 position: Position, onClick: Callable):
+                 position: Position, onClick: Callable, metaData = None):
         super().__init__(position.width, position.height, position.top, position.left)
         self.text = text
         self.color = color
         self.fontSize = fontSize
         self.backgroundColor = backgroundColor
         self.onClick = onClick
+        if metaData is not None:
+            self.metaData = metaData
+        else:
+            self.metaData = {}

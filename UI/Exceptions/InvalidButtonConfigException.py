@@ -9,6 +9,6 @@ class InvalidButtonConfigException(Exception):
     @staticmethod
     def throw_if_invalid(config: ButtonConfig):
         InvalidUiConfigException.throw_if_invalid(config)
-        if config.text.strip() == "" or len(list(filter(lambda x: 0 <= x <= 255, config.color))) != 3 or len(
+        if len(list(filter(lambda x: 0 <= x <= 255, config.color))) != 3 or len(
                 list(filter(lambda x: 0 <= x <= 255, config.backgroundColor))) != 3:
             raise InvalidButtonConfigException

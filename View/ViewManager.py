@@ -2,6 +2,7 @@ from View.Exceptions.ViewNotFoundException import ViewNotFoundException
 from View.BaseView import BaseView
 from View import ViewNames
 from View.MainMenu.MainMenuView import MainMenuView
+from View.PrepareGame.PrepareGameView import PrepareGameView
 from View.SearchGame.SearchGameView import SearchGameView
 from View.GameLobby.GameLobbyView import GameLobbyView
 from View.Game.GameView import GameView
@@ -14,10 +15,11 @@ class ViewManager:
     @staticmethod
     def init():
         ViewManager.viewList = {
-            ViewNames.MAIN_MENU: MainMenuView(),
             ViewNames.SEARCH_GAME: SearchGameView(),
             ViewNames.GAME_LOBBY: GameLobbyView(),
-            ViewNames.GAME: GameView()
+            ViewNames.GAME: GameView(),
+            ViewNames.PREPARE_GAME: PrepareGameView(),
+            ViewNames.MAIN_MENU: MainMenuView(),
         }
 
     @staticmethod

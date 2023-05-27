@@ -37,7 +37,7 @@ class ServerListAction(GameObject):
         }
         self.parent = parent
 
-    def on_create_server_click(self, e):
+    def on_create_server_click(self, e, t):
         server_name = self.serverNameInput.text
 
         if server_name == "":
@@ -54,8 +54,13 @@ class ServerListAction(GameObject):
         GameStore.name = server_name
         EventQueueManager.publish_event(ChangeViewEvent(GAME_LOBBY))
 
-    def on_join_to_server_click(self, e):
+    def on_join_to_server_click(self, e, t):
         selected_server = self.parent.gameList.serverList.get_selected()
+        if selected_server is None:
+            self.errorNameLabel.text = "Please choose server first"
+            self.showError = True
+            return
+
         player_name = PlayerStore.name;
         response = Connection.send_request(Config.GAME_CONTROLLER, "join",
                                            {"playerName": player_name, "gameName": selected_server})
@@ -63,6 +68,7 @@ class ServerListAction(GameObject):
         if not response['isSuccess']:
             self.errorNameLabel.text = response['message']
             self.showError = True
+            return
 
         GameStore.name = selected_server
         EventQueueManager.publish_event(ChangeViewEvent(GAME_LOBBY))

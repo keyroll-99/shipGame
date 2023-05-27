@@ -1,10 +1,7 @@
-from View.BaseView import BaseView
-from UI.Controls.Label import Label, LabelConfig
-from UI.Controls.Input import Input as InputControl, InputConfig
-from Models.Position import Position
 from Config import Config
-from View.SearchGame.GameList import GameList
 from Connection.Connection import Connection
+from View.BaseView import BaseView
+from View.SearchGame.GameList import GameList
 from View.SearchGame.ServerListAction import ServerListAction
 
 

@@ -53,4 +53,7 @@ class List(GameObject):
             self.selectedIndex = witch_element
 
     def get_selected(self):
-        return self.config.elements[self.selectedIndex]
+        try:
+            return self.config.elements[self.selectedIndex]
+        except:
+            return None
