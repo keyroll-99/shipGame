@@ -1,6 +1,7 @@
 from View.Exceptions.ViewNotFoundException import ViewNotFoundException
 from View.BaseView import BaseView
 from View import ViewNames
+from View.FinishGame.FinishGameView import FinishGame
 from View.MainMenu.MainMenuView import MainMenuView
 from View.PrepareGame.PrepareGameView import PrepareGameView
 from View.SearchGame.SearchGameView import SearchGameView
@@ -20,6 +21,7 @@ class ViewManager:
             ViewNames.GAME: GameView(),
             ViewNames.PREPARE_GAME: PrepareGameView(),
             ViewNames.MAIN_MENU: MainMenuView(),
+            ViewNames.FINISH_GAME: FinishGame()
         }
 
     @staticmethod

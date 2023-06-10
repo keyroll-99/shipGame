@@ -5,6 +5,7 @@ from pygame import Surface, SurfaceType
 from pygame.font import Font, SysFont
 from Config import Config as GlobalConfig
 
+
 class Label(GameObject):
     color: tuple[int, int, int]
     text: str

@@ -120,7 +120,7 @@ class ServerListAction(GameObject):
             Position(
                 250,
                 40,
-                (Config.SCREEN_SIZE[0] / 2) + 275,
+                (Config.SCREEN_SIZE[0] / 2) + 315,
                 (Config.SCREEN_SIZE[1] / 2) - 150
             )
         ))
@@ -133,7 +133,7 @@ class ServerListAction(GameObject):
             Position(
                 250,
                 40,
-                (Config.SCREEN_SIZE[0] / 2) + 235,
+                (Config.SCREEN_SIZE[0] / 2) + 275,
                 (Config.SCREEN_SIZE[1] / 2) - 250
             )
         ))
@@ -147,7 +147,7 @@ class ServerListAction(GameObject):
             Position(
                 250,
                 40,
-                (Config.SCREEN_SIZE[0] / 2) + 240,
+                (Config.SCREEN_SIZE[0] / 2) + 280,
                 (Config.SCREEN_SIZE[1] / 2) - 50
             )
         ))
@@ -162,7 +162,7 @@ class ServerListAction(GameObject):
             Position(
                 400,
                 40,
-                (Config.SCREEN_SIZE[0] / 2) + 300,
+                (Config.SCREEN_SIZE[0] / 2) + 350,
                 (Config.SCREEN_SIZE[1] / 2) - 200
             ),
             self.on_create_server_click

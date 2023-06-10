@@ -1,24 +1,16 @@
-import Config.Config
-from Models.Position import Position
-from UI.Controls.Label import Label
-from UI.Models.LabelConfig import LabelConfig
 from View.BaseView import BaseView
+from View.Game.GameBoard import GameBoard
+from View.Game.GameLogic import GameLogic
+from View.Game.MoveLabel import MoveLabel
 
 
 class GameView(BaseView):
     def __init__(self):
-        l = Label(LabelConfig(
-            "dupa",
-            Config.Config.BACK_COLOR,
-            Config.Config.DEFAULT_FONT_SIZE,
-            Position(
-                100,
-                100,
-                100,
-                100
-            )
-        ))
-        self.viewObjects = [l]
+        self.viewObjects = []
 
     def load(self):
+        self.viewObjects.append(GameLogic())
+        self.viewObjects.append(MoveLabel())
+        self.viewObjects.append(GameBoard(False))
+        self.viewObjects.append(GameBoard(True))
         super().load()
